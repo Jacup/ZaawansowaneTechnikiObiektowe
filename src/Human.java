@@ -12,7 +12,7 @@ public class Human {
 
     private static final DateTimeFormatter DTF = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
-    Car car;
+    private Car car;
 
     public Human(String firstName, String lastName) {
         this.firstName = firstName;
@@ -20,16 +20,28 @@ public class Human {
         this.salaryQueries = new HashMap<>();
     }
 
-    public void addCar(Car car1) throws Exception {
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
+    public Car getCar() {
+        return this.car;
+    }
+
+    public void setCar(Car carToAdd) throws Exception {
         if (car == null) {
-            car = car1;
+            if (carToAdd.getValue() <= salary) {
+                System.out.println("Congratulations! " + getFullName() + " can afford " + carToAdd.getName());
+                car = carToAdd;
+            } else if (carToAdd.getValue() > salary && (carToAdd.getValue() / 12) < salary) {
+                System.out.println(getFullName() + " can't afford " + carToAdd.getName() + ", but bank will help him to buy it!");
+                car = carToAdd;
+            } else {
+                System.out.println(getFullName() + " is poor, he should ride a bike :( ");
+            }
         } else {
             throw new Exception("This guy already has a car");
         }
-    }
-
-    public String getFullName() {
-        return firstName + " " + lastName;
     }
 
     public Double getSalary() {
