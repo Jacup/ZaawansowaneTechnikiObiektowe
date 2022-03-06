@@ -9,12 +9,12 @@ public class Main {
 
         me.addCar(car1);
 
-        // zad03();
+        // zad034();
 
 
     }
 
-    private static void zad03() throws Exception {
+    private static void zad034() throws Exception {
         System.out.println(me.getFullName() + " has a car: " + me.car.getName());
         me.setSalary(10000.0);
         // me.setSalary(-3000.0);
