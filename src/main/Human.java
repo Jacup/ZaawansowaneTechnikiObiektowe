@@ -27,12 +27,7 @@ public class Human {
 
     @Override
     public String toString() {
-        return "main.Human{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", salary=" + salary +
-                ", car=" + car +
-                '}';
+        return "main.Human{" + "firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", salary=" + salary + ", car=" + car + '}';
     }
 
     public String getFullName() {
@@ -65,8 +60,9 @@ public class Human {
 
     public void sellCar(Double price) {
         car = null;
-
+        addCash(price);
     }
+
     public void buyCar(Car carToAdd, Double price) {
         car = carToAdd;
         removeCash(price);
@@ -95,8 +91,7 @@ public class Human {
 
         System.out.println("\n ------------");
         System.out.println("| New salary " + salary + " has been saved!  || " + DTF.format(createdDate));
-        System.out.println("| Please visit Halina from HR to get your copy of doc. " +
-                "PS. Pegasus knows everything ( \u0361\u00B0 \u035C\u0296 \u0361\u00B0)");
+        System.out.println("| Please visit Halina from HR to get your copy of doc. " + "PS. Pegasus knows everything ( \u0361\u00B0 \u035C\u0296 \u0361\u00B0)");
         System.out.println(" ------------");
         this.salary = salary;
     }
@@ -112,8 +107,7 @@ public class Human {
     public void removeCash(Double value) {
         if (cash >= value) {
             cash -= value;
-        }
-        else {
+        } else {
             try {
                 throw new Exception(getFullName() + " doesn't have enough cash");
             } catch (Exception e) {
