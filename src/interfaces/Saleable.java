@@ -1,5 +1,5 @@
 package interfaces;
-import main.Human;
+import main.creatures.Human;
 
 public interface Saleable { public String hello = "hi";
 

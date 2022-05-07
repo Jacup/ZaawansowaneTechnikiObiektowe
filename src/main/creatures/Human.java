@@ -1,4 +1,4 @@
-package main;
+package main.creatures;
 
 import main.devices.Car;
 
@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Human {
+public class Human extends Animal {
 
     private final String firstName;
     private final String lastName;
@@ -19,6 +19,7 @@ public class Human {
     private Car car;
 
     public Human(String firstName, String lastName, Double cash) {
+        super();
         this.firstName = firstName;
         this.lastName = lastName;
         this.cash = cash;
@@ -27,7 +28,7 @@ public class Human {
 
     @Override
     public String toString() {
-        return "main.Human{" + "firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", salary=" + salary + ", car=" + car + '}';
+        return "main.creatures.Human{" + "firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", salary=" + salary + ", car=" + car + '}';
     }
 
     public String getFullName() {

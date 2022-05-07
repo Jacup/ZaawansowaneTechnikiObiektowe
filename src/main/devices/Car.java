@@ -1,7 +1,7 @@
 package main.devices;
 
 import interfaces.Saleable;
-import main.Human;
+import main.creatures.Human;
 
 public class Car extends Device implements Saleable {
 
