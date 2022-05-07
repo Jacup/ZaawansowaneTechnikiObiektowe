@@ -1,3 +1,5 @@
+import devices.Car;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -18,6 +20,16 @@ public class Human {
         this.firstName = firstName;
         this.lastName = lastName;
         this.salaryQueries = new HashMap<>();
+    }
+
+    @Override
+    public String toString() {
+        return "Human{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", salary=" + salary +
+                ", car=" + car +
+                '}';
     }
 
     public String getFullName() {

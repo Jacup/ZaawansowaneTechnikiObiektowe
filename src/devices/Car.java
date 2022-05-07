@@ -1,3 +1,5 @@
+package devices;
+
 public class Car {
 
     private final String model;
@@ -8,6 +10,15 @@ public class Car {
         this.producer = producer;
         this.model = model;
         this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return "devices.Car{" +
+                "model='" + model + '\'' +
+                ", producer='" + producer + '\'' +
+                ", value=" + value +
+                '}';
     }
 
     public Double getValue() {
