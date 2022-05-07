@@ -1,6 +1,4 @@
-package devices;
-
-import java.net.SocketOption;
+package Models.devices;
 
 public class Phone extends Device{
     public Phone(String producer, String model, int yearOfProduction) {

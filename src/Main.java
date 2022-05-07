@@ -1,4 +1,5 @@
-import devices.Car;
+import Models.Human;
+import Models.devices.Car;
 
 public class Main {
 
@@ -13,11 +14,12 @@ public class Main {
 //        zad034();
 //        zad05();
 //        zad06();
-        zad07();
+//        zad07();
+        zad08();
     }
 
     private static void zad034() throws Exception {
-        me = new Human("Jakub", "Gramburg");
+        me = new Human("Jakub", "Gramburg", 5000.0);
 
         me.setSalary(10000.0);
         // me.setSalary(-3000.0);
@@ -29,7 +31,7 @@ public class Main {
     }
 
     private static void zad05() throws Exception {
-        me = new Human("Jakub", "Gramburg");
+        me = new Human("Jakub", "Gramburg", 5000.0);
 
         me.setSalary(15000.0);
         car1 = new Car("Ford", "Focus",2015, 10000.0);
@@ -54,13 +56,25 @@ public class Main {
         System.out.println(car1);
         // print whole car results in printing hashcode values of the objects
         // after adding 'toString()' in class, we can override default hashcode printing, with own print msg, for example
-        // devices.Car.cs:14
-        me = new Human("Jakub", "Gramburg");
+        // Models.devices.Car.cs:14
+        me = new Human("Jakub", "Gramburg", 5000.0);
         System.out.println(me);
     }
 
     private static void zad07() {
         car1 = new Car("Audi", "RS3", 2015, 150000.0);
         car1.turnOn();
+    }
+
+    private static void zad08() throws Exception {
+        car1 = new Car("Audi", "RS3", 2015, 150000.0);
+
+        me = new Human("Jakub", "Gramburg", 5000.0);
+        me.setSalary(15000.0); //needed due to prev tasks
+        me.setCar(car1);
+
+        Human someone = new Human("Jan", "Pawel", 1000000.0);
+
+        car1.sell(me, someone, car1.getValue());
     }
 }

@@ -1,4 +1,6 @@
-import devices.Car;
+package Models;
+
+import Models.devices.Car;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -11,20 +13,21 @@ public class Human {
     private final String lastName;
     private Double salary;
     private final Map<LocalDateTime, Double> salaryQueries;
-
+    private Double cash;
     private static final DateTimeFormatter DTF = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
     private Car car;
 
-    public Human(String firstName, String lastName) {
+    public Human(String firstName, String lastName, Double cash) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.cash = cash;
         this.salaryQueries = new HashMap<>();
     }
 
     @Override
     public String toString() {
-        return "Human{" +
+        return "Models.Human{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", salary=" + salary +
@@ -40,6 +43,10 @@ public class Human {
         return this.car;
     }
 
+    /*
+    I know that is quite good spaghetti, bon appétit :)
+    I will refactor this nested if statements if I have enough time
+    */
     public void setCar(Car carToAdd) throws Exception {
         if (car == null) {
             if (carToAdd.getValue() <= salary) {
@@ -54,6 +61,15 @@ public class Human {
         } else {
             throw new Exception("This guy already has a car");
         }
+    }
+
+    public void sellCar(Double price) {
+        car = null;
+
+    }
+    public void buyCar(Car carToAdd, Double price) {
+        car = carToAdd;
+        removeCash(price);
     }
 
     public Double getSalary() {
@@ -84,4 +100,26 @@ public class Human {
         System.out.println(" ------------");
         this.salary = salary;
     }
+
+    public Double getCash() {
+        return cash;
+    }
+
+    public void addCash(Double value) {
+        cash += value;
+    }
+
+    public void removeCash(Double value) {
+        if (cash >= value) {
+            cash -= value;
+        }
+        else {
+            try {
+                throw new Exception(getFullName() + " doesn't have enough cash");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
+

@@ -1,3 +1,5 @@
+package Models;
+
 public class Animal {
 
     private Double weight;
@@ -21,14 +23,14 @@ public class Animal {
 
     public void feed() throws Exception {
         if (!isAlive())
-            throw new Exception("Animal is dead, you can not feed dead animal :(");
+            throw new Exception("Models.Animal is dead, you can not feed dead animal :(");
         else
             this.weight += 1.0;
     }
 
     public void takeForAWalk() throws Exception {
         if (!isAlive())
-            throw new Exception("Animal is dead, you can not take for a walk dead animal :(");
+            throw new Exception("Models.Animal is dead, you can not take for a walk dead animal :(");
         this.weight -= 2.0;
     }
 

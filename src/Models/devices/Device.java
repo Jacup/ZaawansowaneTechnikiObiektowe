@@ -1,4 +1,4 @@
-package devices;
+package Models.devices;
 
 public abstract class Device {
     private String model;
