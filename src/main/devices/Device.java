@@ -1,9 +1,9 @@
-package Models.devices;
+package main.devices;
 
 public abstract class Device {
-    private String model;
-    private String producer;
-    private int yearOfProduction;
+    private final String model;
+    private final String producer;
+    private final int yearOfProduction;
 
     public Device(String model, String producer, int yearOfProduction) {
         this.model = model;

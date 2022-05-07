@@ -1,5 +1,5 @@
-package Interfaces;
-import Models.Human;
+package interfaces;
+import main.Human;
 
 public interface Saleable { public String hello = "hi";
 

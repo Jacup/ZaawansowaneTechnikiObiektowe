@@ -1,4 +1,4 @@
-package Models.devices;
+package main.devices;
 
 public class Phone extends Device{
     public Phone(String producer, String model, int yearOfProduction) {

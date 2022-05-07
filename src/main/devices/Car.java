@@ -1,7 +1,7 @@
-package Models.devices;
+package main.devices;
 
-import Interfaces.Saleable;
-import Models.Human;
+import interfaces.Saleable;
+import main.Human;
 
 public class Car extends Device implements Saleable {
 

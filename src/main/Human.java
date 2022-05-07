@@ -1,6 +1,6 @@
-package Models;
+package main;
 
-import Models.devices.Car;
+import main.devices.Car;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -27,7 +27,7 @@ public class Human {
 
     @Override
     public String toString() {
-        return "Models.Human{" +
+        return "main.Human{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", salary=" + salary +

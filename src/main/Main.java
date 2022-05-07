@@ -1,5 +1,6 @@
-import Models.Human;
-import Models.devices.Car;
+package main;
+
+import main.devices.Car;
 
 public class Main {
 
@@ -49,7 +50,7 @@ public class Main {
         car2 = new Car("Audi", "RS3", 2015, 150000.0);
 
         var areEqual = car1.equals(car2);
-        // even when objects have the same attributes(they're the same), for OS they are two separate objects,
+        // even when objects have the same attributes(they look the same), for OS they are two separate objects,
         // with different references in memory heap.
 
         System.out.println("is car1 equal to car2? Answer is:  " + areEqual);
@@ -76,5 +77,7 @@ public class Main {
         Human someone = new Human("Jan", "Pawel", 1000000.0);
 
         car1.sell(me, someone, car1.getValue());
+//        me.sell(me, someone, 50000.0); you cannot trade people, we are in XXI century...
+
     }
 }
