@@ -12,7 +12,8 @@ public class Main {
 
 //        zad034();
 //        zad05();
-        zad06();
+//        zad06();
+        zad07();
     }
 
     private static void zad034() throws Exception {
@@ -31,18 +32,19 @@ public class Main {
         me = new Human("Jakub", "Gramburg");
 
         me.setSalary(15000.0);
-        car1 = new Car("Ford", "Focus", 10000.0);
-        car2 = new Car("Audi", "RS3", 150000.0);
-        car3 = new Car("Ferrari", "Aventador", 1000000.0);
+        car1 = new Car("Ford", "Focus",2015, 10000.0);
+        car2 = new Car("Audi", "RS3", 2015, 150000.0);
+        car3 = new Car("Ferrari", "Aventador", 2020, 1000000.0);
 
         me.setCar(car1);
+        // wincyj sie nie da
         me.setCar(car2);
         me.setCar(car3);
     }
 
     private static void zad06() {
-        car1 = new Car("Audi", "RS3", 150000.0);
-        car2 = new Car("Audi", "RS3", 150000.0);
+        car1 = new Car("Audi", "RS3", 2015, 150000.0);
+        car2 = new Car("Audi", "RS3", 2015, 150000.0);
 
         var areEqual = car1.equals(car2);
         // even when objects have the same attributes(they're the same), for OS they are two separate objects,
@@ -55,6 +57,10 @@ public class Main {
         // devices.Car.cs:14
         me = new Human("Jakub", "Gramburg");
         System.out.println(me);
+    }
 
+    private static void zad07() {
+        car1 = new Car("Audi", "RS3", 2015, 150000.0);
+        car1.turnOn();
     }
 }
