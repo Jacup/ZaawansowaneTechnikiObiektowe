@@ -25,7 +25,8 @@ public class Main {
 //        zad07();
 //        zad08();
 //        zad09();
-        zad10();
+//        zad10();
+        zad11();
     }
 
     private static void zad034() throws Exception {
@@ -81,7 +82,7 @@ public class Main {
 
         me = new Human("Jakub", "Gramburg", 5000.0);
         me.setSalary(15000.0); //needed due to prev tasks
-        me.setCar(car1);
+        me.setCar(car1, 0);
 
         Human someone = new Human("Jan", "Pawel", 1000000.0);
 
@@ -115,17 +116,45 @@ public class Main {
 
         //      var latestversion = facebook.getLatestVersion();            // should throw exception
         facebook.addNewVersion(1, "www.facebook.com/1");
-        var latestversion =  facebook.getLatestVersion();            // should return v1
+        var latestversion = facebook.getLatestVersion();            // should return v1
 
         facebook.addNewVersion(2, "www.facebook.com/2");
-        var latestversion2 =  facebook.getLatestVersion();            // should return v2
+        var latestversion2 = facebook.getLatestVersion();            // should return v2
 
-        Phone myPhone = new Phone("Samsung", "Galaxy S22", 2022);
+        Phone myPhone = new Phone("Samsung", "Galaxy S22", 2022, 3000.0);
         myPhone.installApp(facebook);
 //        myPhone.installApp(facebook, 3);    // failure
         myPhone.installApp(facebook, 1); // provide version number, even if is invalid.
 
 
+    }
+
+
+    private static void zad11() throws Exception {
+// init objects
+        me = new Human("Jakub", "Gramburg", 5000.0);
+        me.setSalary(10000.0);
+        Human someone = new Human("Jan", "Pawel", 1000000.0);
+        someone.setSalary(5000.0);
+        System.out.println(me.toString());
+        car1 = new Diesel("Daewoo", "Matiz", 2000, 999.0);
+        car2 = new Diesel("VW", "Golf", 1999, 5000.0);
+        car3 = new Diesel("VW", "Passat", 2010, 5000.0);
+
+// test ability to setCar with salary:
+        me.setCar(car1);                        // random spot (first available, in this case 0)
+        me.setCar(car2, 2);          // defined spot
+        someone.setCar(car3);
+//        me.setCar(car1, 5);                     // its illegal;
+
+// trading car between users and putting them on first available spot
+        car1.sell(me, someone, car1.getValue());
+
+// trading car between users and putting them on first available spot, but buyer don't have empty spot
+        Human andrzej = new Human("Mariusz", "Pudzianowski", 1000000.0, 0);
+        car2.sell(me, someone, car2.getValue());
+        System.out.println("Someone's garage is worth: " + someone.getGarageValue());
+        someone.sortGarage();           // sorting by yearOfProd, than name
     }
 
 }

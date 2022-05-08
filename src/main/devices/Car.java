@@ -3,13 +3,10 @@ package main.devices;
 import interfaces.Saleable;
 import main.creatures.Human;
 
-public abstract class Car extends Device implements Saleable {
-
-    private Double value;
+public abstract class Car extends Device implements Saleable , Comparable<Car>{
 
     public Car(String producer, String model, int yearOfProduction, Double value) {
-        super(model, producer, yearOfProduction);
-        this.value = value;
+        super(model, producer, yearOfProduction, value);
     }
 
     @Override
@@ -21,11 +18,7 @@ public abstract class Car extends Device implements Saleable {
 
     @Override
     public String toString() {
-        return "Models.devices.Car{" + "model='" + getModel() + '\'' + ", producer='" + getProducer() + '\'' + ", value=" + value + '}';
-    }
-
-    public Double getValue() {
-        return value;
+        return getProducer() + " " + getModel() + " " + getYearOfProduction();
     }
 
     public String getName() {
@@ -37,10 +30,10 @@ public abstract class Car extends Device implements Saleable {
     }
 
     @Override
-    public void sell(Human seller, Human buyer, Double price) {
+    public void sell(Human seller, Human buyer, Double price) throws Exception {
         if (isOwner(seller) && buyerHasEnoughCash(buyer, price)) {
             buyer.buyCar(this, price);
-            seller.sellCar(price);
+            seller.sellCar(this, price);
             System.out.println("Transaction between " + buyer.getFullName() + " and " + seller.getFullName() + " has been finished succesfully");
         }
     }
@@ -53,10 +46,19 @@ public abstract class Car extends Device implements Saleable {
     }
 
     private boolean isOwner(Human seller) {
-        var isOwner = this.equals(seller.getCar());
-        if (!isOwner)
-            System.out.println(seller.getFullName() + " cannot sell " + getCar() + " because it's not his car!");
-
-        return isOwner;
+        for (Car car : seller.getGarage()) {
+            if (this.getCar().equals(car)) return true;
+            else continue;
+        }
+        return false;
     }
+
+    @Override
+    public int compareTo(Car o) {
+        if (this.getYearOfProduction() != o.getYearOfProduction())
+            return this.getYearOfProduction() - o.getYearOfProduction();
+        else
+            return this.getName().compareTo(o.getName());
+    }
+
 }

@@ -4,8 +4,8 @@ import main.apps.App;
 import main.apps.AppVersion;
 
 public class Phone extends Device {
-    public Phone(String producer, String model, int yearOfProduction) {
-        super(model, producer, yearOfProduction);
+    public Phone(String producer, String model, int yearOfProduction, Double value) {
+        super(model, producer, yearOfProduction,value );
     }
 
     @Override

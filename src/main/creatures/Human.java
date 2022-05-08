@@ -2,21 +2,22 @@ package main.creatures;
 
 import main.devices.Car;
 
+import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Human extends Animal {
 
     private final String firstName;
     private final String lastName;
-    private Double salary;
     private final Map<LocalDateTime, Double> salaryQueries;
-    private Double cash;
     private static final DateTimeFormatter DTF = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+    private static final int DEFAULTGARAGESIZE = 3;
 
-    private Car car;
+    private Double salary;
+    private Double cash;
+    private Car[] garage;
 
     public Human(String firstName, String lastName, Double cash) {
         super();
@@ -24,49 +25,116 @@ public class Human extends Animal {
         this.lastName = lastName;
         this.cash = cash;
         this.salaryQueries = new HashMap<>();
+        this.garage = new Car[DEFAULTGARAGESIZE];
+    }
+
+    public Human(String firstName, String lastName, Double cash, Integer garageSize) {
+        super();
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.cash = cash;
+        this.salaryQueries = new HashMap<>();
+        this.garage = new Car[DEFAULTGARAGESIZE];
     }
 
     @Override
     public String toString() {
-        return "main.creatures.Human{" + "firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", salary=" + salary + ", car=" + car + '}';
+        String msg = "firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", salary=" + salary;
+        if (haveAnyCar()) msg += "\nCars:";
+        for (int i = 0; i < garage.length; i++) {
+            if (!isEmpty(i)) {
+                msg += "\n   " + garage[i].toString();
+            }
+        }
+        return msg;
     }
 
     public String getFullName() {
         return firstName + " " + lastName;
     }
 
-    public Car getCar() {
-        return this.car;
+    public Car[] getGarage() {
+        return this.garage;
+    }
+
+    public Car getCar(Integer parkingSpace) {
+        return garage[parkingSpace];
+    }
+
+    private boolean haveAnyCar() {
+        boolean carFound = false;
+
+        for (int i = 0; i < garage.length; i++) {
+            if (garage[i] == null) continue;
+            else carFound = true;
+        }
+        return carFound;
     }
 
     /*
     I know that is quite good spaghetti, bon appétit :)
     I will refactor this nested if statements if I have enough time
     */
-    public void setCar(Car carToAdd) throws Exception {
-        if (car == null) {
+    public void setCar(Car carToAdd, Integer parkingSpace) throws Exception {
+        if (parkingSpace < garage.length && isEmpty(parkingSpace)) {
             if (carToAdd.getValue() <= salary) {
                 System.out.println("Congratulations! " + getFullName() + " can afford " + carToAdd.getName());
-                car = carToAdd;
+                garage[parkingSpace] = carToAdd;
             } else if (carToAdd.getValue() > salary && (carToAdd.getValue() / 12) < salary) {
                 System.out.println(getFullName() + " can't afford " + carToAdd.getName() + ", but bank will help him to buy it!");
-                car = carToAdd;
+                garage[parkingSpace] = carToAdd;
             } else {
                 System.out.println(getFullName() + " is poor, he should ride a bike :( ");
             }
         } else {
-            throw new Exception("This guy already has a car");
+            throw new Exception("Cannot set car on " + parkingSpace + " parking space");
         }
     }
 
-    public void sellCar(Double price) {
-        car = null;
+    public void setCar(Car carToAdd) throws Exception {
+        var emptySpot = getEmptySpot();
+
+        if (carToAdd.getValue() <= salary) {
+            System.out.println("Congratulations! " + getFullName() + " can afford " + carToAdd.getName());
+            garage[emptySpot] = carToAdd;
+        } else if (carToAdd.getValue() > salary && (carToAdd.getValue() / 12) < salary) {
+            System.out.println(getFullName() + " can't afford " + carToAdd.getName() + ", but bank will help him to buy it!");
+            garage[emptySpot] = carToAdd;
+        } else {
+            System.out.println(getFullName() + " is poor, he should ride a bike :( ");
+        }
+    }
+
+    private Integer getEmptySpot() throws Exception {
+        for (int i = 0; i < garage.length; i++) {
+            if (isEmpty(i)) return i;
+        }
+        throw new Exception(this.getFullName() + "don't have empty slots in garage!");
+    }
+
+    private Boolean isEmpty(int i) {
+        if (garage[i] == null) return true;
+        else return false;
+    }
+
+
+    public void sellCar(Car carToRemove, Double price) throws Exception {
+        int spotInGarage = findCarSpotInGarage(carToRemove);
+        garage[spotInGarage] = null;
         addCash(price);
     }
 
-    public void buyCar(Car carToAdd, Double price) {
-        car = carToAdd;
+    private int findCarSpotInGarage(Car carToRemove) throws Exception {
+        for (int i = 0; i < garage.length; i++) {
+            if (garage[i] == carToRemove) return i;
+        }
+        throw new Exception("ERROR. Something go wrong.");
+    }
+
+    public void buyCar(Car carToAdd, Double price) throws Exception {
+        var emptySpot = getEmptySpot();
         removeCash(price);
+        garage[emptySpot] = carToAdd;
     }
 
     public Double getSalary() {
@@ -115,6 +183,17 @@ public class Human extends Animal {
                 e.printStackTrace();
             }
         }
+    }
+
+    public Double getGarageValue() {
+        Double sum = 0.0;
+        for (Car car : garage) {
+            if (car != null) sum = sum + car.getValue();
+        }
+        return sum;
+    }
+    public void sortGarage() {
+        Arrays.sort(garage);
     }
 }
 
