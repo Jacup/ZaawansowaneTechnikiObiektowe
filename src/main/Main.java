@@ -1,5 +1,7 @@
 package main;
 
+import main.apps.App;
+import main.apps.AppVersion;
 import main.creatures.FarmAnimal;
 import main.creatures.Human;
 import main.creatures.Pet;
@@ -20,7 +22,8 @@ public class Main {
 //        zad06();
 //        zad07();
 //        zad08();
-        zad09();
+//        zad09();
+        zad10();
     }
 
     private static void zad034() throws Exception {
@@ -81,7 +84,7 @@ public class Main {
         Human someone = new Human("Jan", "Pawel", 1000000.0);
 
         car1.sell(me, someone, car1.getValue());
-//        me.sell(me, someone, 50000.0); you cannot trade people, we are in XXI century...
+//        me.sell(me, someone, 50000.0);        // you cannot trade people, we are in XXI century...
 
     }
 
@@ -97,8 +100,22 @@ public class Main {
         burek.feed(peppa);              // another way of feeding
 
 // not allowed:
-//        me.feed(burek);    // dogs are not tasty (didn't try, just guessing)
+//        me.feed(burek);                 // dogs are not tasty (didn't try, just guessing)
 //        peppa.feed(burek);              // bad idea
 //        peppa.feed(peppa);              // that is weird and forbidden
     }
+
+    private static void zad10() throws Exception {
+        App facebook = new App("Facebook");
+//      var latestversion = facebook.getLatestVersion();            // should throw exception
+
+        facebook.addNewVersion(1, "www.x.com/1");
+        var latestversion =  facebook.getLatestVersion();            // should return v1
+
+        facebook.addNewVersion(2, "www.x.com/2");
+        var latestversion2 =  facebook.getLatestVersion();            // should return v2
+
+
+    }
+
 }

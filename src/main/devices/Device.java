@@ -1,6 +1,8 @@
 package main.devices;
 
-public abstract class Device {
+import interfaces.Saleable;
+
+public abstract class Device implements Saleable {
     private final String model;
     private final String producer;
     private final int yearOfProduction;
