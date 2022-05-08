@@ -97,7 +97,7 @@ public class Main {
         burek.feed(peppa);              // another way of feeding
 
 // not allowed:
-//        me.eat(burek);    // dogs are not tasty (didn't try, just guessing)
+//        me.feed(burek);    // dogs are not tasty (didn't try, just guessing)
 //        peppa.feed(burek);              // bad idea
 //        peppa.feed(peppa);              // that is weird and forbidden
     }
