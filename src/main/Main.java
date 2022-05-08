@@ -6,6 +6,8 @@ import main.creatures.FarmAnimal;
 import main.creatures.Human;
 import main.creatures.Pet;
 import main.devices.Car;
+import main.devices.Diesel;
+import main.devices.Phone;
 
 public class Main {
 
@@ -42,9 +44,9 @@ public class Main {
         me = new Human("Jakub", "Gramburg", 5000.0);
 
         me.setSalary(15000.0);
-        car1 = new Car("Ford", "Focus", 2015, 10000.0);
-        car2 = new Car("Audi", "RS3", 2015, 150000.0);
-        car3 = new Car("Ferrari", "Aventador", 2020, 1000000.0);
+        car1 = new Diesel("Ford", "Focus", 2015, 10000.0);
+        car2 = new Diesel("Audi", "RS3", 2015, 150000.0);
+        car3 = new Diesel("Ferrari", "Aventador", 2020, 1000000.0);
 
         me.setCar(car1);
         // wincyj sie nie da
@@ -53,8 +55,8 @@ public class Main {
     }
 
     private static void zad06() {
-        car1 = new Car("Audi", "RS3", 2015, 150000.0);
-        car2 = new Car("Audi", "RS3", 2015, 150000.0);
+        car1 = new Diesel("Audi", "RS3", 2015, 150000.0);
+        car2 = new Diesel("Audi", "RS3", 2015, 150000.0);
 
         var areEqual = car1.equals(car2);
         // even when objects have the same attributes(they look the same), for OS they are two separate objects,
@@ -70,12 +72,12 @@ public class Main {
     }
 
     private static void zad07() {
-        car1 = new Car("Audi", "RS3", 2015, 150000.0);
+        car1 = new Diesel("Audi", "RS3", 2015, 150000.0);
         car1.turnOn();
     }
 
     private static void zad08() throws Exception {
-        car1 = new Car("Audi", "RS3", 2015, 150000.0);
+        car1 = new Diesel("Audi", "RS3", 2015, 150000.0);
 
         me = new Human("Jakub", "Gramburg", 5000.0);
         me.setSalary(15000.0); //needed due to prev tasks
@@ -106,14 +108,22 @@ public class Main {
     }
 
     private static void zad10() throws Exception {
-        App facebook = new App("Facebook");
-//      var latestversion = facebook.getLatestVersion();            // should throw exception
 
-        facebook.addNewVersion(1, "www.x.com/1");
+        App facebook = new App("Facebook");
+        App twitter = new App("Twitter");
+        twitter.addNewVersion(1, "www.twitter.com/1");
+
+        //      var latestversion = facebook.getLatestVersion();            // should throw exception
+        facebook.addNewVersion(1, "www.facebook.com/1");
         var latestversion =  facebook.getLatestVersion();            // should return v1
 
-        facebook.addNewVersion(2, "www.x.com/2");
+        facebook.addNewVersion(2, "www.facebook.com/2");
         var latestversion2 =  facebook.getLatestVersion();            // should return v2
+
+        Phone myPhone = new Phone("Samsung", "Galaxy S22", 2022);
+        myPhone.installApp(facebook);
+//        myPhone.installApp(facebook, 3);    // failure
+        myPhone.installApp(facebook, 1); // provide version number, even if is invalid.
 
 
     }

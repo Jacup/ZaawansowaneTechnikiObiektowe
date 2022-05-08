@@ -17,11 +17,7 @@ public abstract class Device implements Saleable {
 
     @Override
     public String toString() {
-        return "Device{" +
-                "model='" + model + '\'' +
-                ", producer='" + producer + '\'' +
-                ", yearOfProduction=" + yearOfProduction +
-                '}';
+        return producer + " " + model;
     }
 
     public String getModel() {

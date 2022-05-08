@@ -3,7 +3,7 @@ package main.devices;
 import interfaces.Saleable;
 import main.creatures.Human;
 
-public class Car extends Device implements Saleable {
+public abstract class Car extends Device implements Saleable {
 
     private Double value;
 
@@ -16,6 +16,8 @@ public class Car extends Device implements Saleable {
     public void turnOn() {
         System.out.println("vroom vroom. . . ");
     }
+
+    public abstract void refuel();
 
     @Override
     public String toString() {
