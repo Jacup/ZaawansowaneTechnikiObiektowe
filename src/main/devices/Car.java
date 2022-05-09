@@ -1,12 +1,21 @@
 package main.devices;
 
 import interfaces.Saleable;
+import main.apps.AppVersion;
 import main.creatures.Human;
 
-public abstract class Car extends Device implements Saleable , Comparable<Car>{
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Optional;
+
+public abstract class Car extends Device implements Saleable, Comparable<Car> {
+
+    private final ArrayList<Human> owners;
+    private final ArrayList<Transaction> transactions = new ArrayList<>();
 
     public Car(String producer, String model, int yearOfProduction, Double value) {
         super(model, producer, yearOfProduction, value);
+        owners = new ArrayList<>();
     }
 
     @Override
@@ -31,11 +40,16 @@ public abstract class Car extends Device implements Saleable , Comparable<Car>{
 
     @Override
     public void sell(Human seller, Human buyer, Double price) throws Exception {
-        if (isOwner(seller) && buyerHasEnoughCash(buyer, price)) {
+        if (isOwner(seller) && isLatestOwner(seller) && buyerHasEnoughCash(buyer, price)) {
             buyer.buyCar(this, price);
             seller.sellCar(this, price);
+            transactions.add(new Transaction(seller, buyer, price, LocalDateTime.now()));
             System.out.println("Transaction between " + buyer.getFullName() + " and " + seller.getFullName() + " has been finished succesfully");
         }
+    }
+
+    private boolean isLatestOwner(Human seller) {
+        return owners.get(owners.size() - 1).equals(seller);
     }
 
     private boolean buyerHasEnoughCash(Human buyer, Double cash) {
@@ -48,7 +62,6 @@ public abstract class Car extends Device implements Saleable , Comparable<Car>{
     private boolean isOwner(Human seller) {
         for (Car car : seller.getGarage()) {
             if (this.getCar().equals(car)) return true;
-            else continue;
         }
         return false;
     }
@@ -57,8 +70,29 @@ public abstract class Car extends Device implements Saleable , Comparable<Car>{
     public int compareTo(Car o) {
         if (this.getYearOfProduction() != o.getYearOfProduction())
             return this.getYearOfProduction() - o.getYearOfProduction();
-        else
-            return this.getName().compareTo(o.getName());
+        else return this.getName().compareTo(o.getName());
     }
 
+    public ArrayList<Human> getOwners() {
+        return owners;
+    }
+
+    public void addOwner(Human newOwner) {
+        this.owners.add(newOwner);
+    }
+
+    public boolean isBrandNew() {
+        return this.owners.isEmpty();
+    }
+
+    public boolean transactionExists(Human seller, Human buyer) {
+        Optional<Transaction> transaction = transactions.stream()
+                .filter(x -> x.seller().equals(seller) && x.buyer().equals(buyer)).findFirst();
+
+        return transaction.isPresent();
+    }
+
+    public int getTransactionsAmount() {
+        return transactions.size();
+    }
 }

@@ -73,16 +73,18 @@ public class Human extends Animal {
 
     /*
     I know that is quite good spaghetti, bon appétit :)
-    I will refactor this nested if statements if I have enough time
+    I will refactor this nested and doubled if statements if I have enough time
     */
     public void setCar(Car carToAdd, Integer parkingSpace) throws Exception {
         if (parkingSpace < garage.length && isEmpty(parkingSpace)) {
             if (carToAdd.getValue() <= salary) {
                 System.out.println("Congratulations! " + getFullName() + " can afford " + carToAdd.getName());
                 garage[parkingSpace] = carToAdd;
+                carToAdd.addOwner(this);
             } else if (carToAdd.getValue() > salary && (carToAdd.getValue() / 12) < salary) {
                 System.out.println(getFullName() + " can't afford " + carToAdd.getName() + ", but bank will help him to buy it!");
                 garage[parkingSpace] = carToAdd;
+                carToAdd.addOwner(this);
             } else {
                 System.out.println(getFullName() + " is poor, he should ride a bike :( ");
             }
@@ -92,17 +94,7 @@ public class Human extends Animal {
     }
 
     public void setCar(Car carToAdd) throws Exception {
-        var emptySpot = getEmptySpot();
-
-        if (carToAdd.getValue() <= salary) {
-            System.out.println("Congratulations! " + getFullName() + " can afford " + carToAdd.getName());
-            garage[emptySpot] = carToAdd;
-        } else if (carToAdd.getValue() > salary && (carToAdd.getValue() / 12) < salary) {
-            System.out.println(getFullName() + " can't afford " + carToAdd.getName() + ", but bank will help him to buy it!");
-            garage[emptySpot] = carToAdd;
-        } else {
-            System.out.println(getFullName() + " is poor, he should ride a bike :( ");
-        }
+        setCar(carToAdd, getEmptySpot());
     }
 
     private Integer getEmptySpot() throws Exception {
@@ -116,7 +108,6 @@ public class Human extends Animal {
         if (garage[i] == null) return true;
         else return false;
     }
-
 
     public void sellCar(Car carToRemove, Double price) throws Exception {
         int spotInGarage = findCarSpotInGarage(carToRemove);
@@ -135,6 +126,7 @@ public class Human extends Animal {
         var emptySpot = getEmptySpot();
         removeCash(price);
         garage[emptySpot] = carToAdd;
+        carToAdd.addOwner(this);
     }
 
     public Double getSalary() {
@@ -192,6 +184,7 @@ public class Human extends Animal {
         }
         return sum;
     }
+
     public void sortGarage() {
         Arrays.sort(garage);
     }

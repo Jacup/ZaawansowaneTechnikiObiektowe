@@ -153,8 +153,28 @@ public class Main {
 // trading car between users and putting them on first available spot, but buyer don't have empty spot
         Human andrzej = new Human("Mariusz", "Pudzianowski", 1000000.0, 0);
         car2.sell(me, someone, car2.getValue());
-        System.out.println("Someone's garage is worth: " + someone.getGarageValue());
+        System.out.println(someone.getFullName() + "'s garage is worth: " + someone.getGarageValue());
         someone.sortGarage();           // sorting by yearOfProd, than name
+
+// was there any owner of a car?
+        car3 = new Diesel("VW", "Passat", 2010, 5000.0);
+
+        System.out.println();
+        System.out.println(car1.toString() + " is brand new: " + car1.isBrandNew());
+        System.out.println(car3.toString() + " is brand new: " + car3.isBrandNew());
+
+// find transactions
+        System.out.println();
+        System.out.println("Did " + me.getFullName() + " sold " + car1.getName() +
+                " to " + someone.getFullName() + "?: " + car1.transactionExists(me, someone));
+        System.out.println("Did " + me.getFullName() + " sold " + car3.getName() +
+                " to " + someone.getFullName() + "?: " + car3.transactionExists(me, someone));
+
+// count transactions
+        System.out.println();
+        System.out.println("Amount of transactions of " + car1.getName() + " : " + car1.getTransactionsAmount());
+        System.out.println("Amount of transactions of " + car3.getName() + " : " + car3.getTransactionsAmount());
+
     }
 
 }
