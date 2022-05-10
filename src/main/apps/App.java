@@ -6,10 +6,19 @@ public class App {
 
     private final String Name;
     private final ArrayList<AppVersion> AppVersions;
+    private final Double price;
+    private static final Double DEFAULTPRICE = 0.0;
+
+    public App(String name, Double price) {
+        this.Name = name;
+        this.AppVersions = new ArrayList<>();
+        this.price = price;
+    }
 
     public App(String name) {
-        Name = name;
-        AppVersions = new ArrayList<>();
+        this.Name = name;
+        this.AppVersions = new ArrayList<>();
+        this.price = DEFAULTPRICE;
     }
 
     public String getName() {
@@ -26,14 +35,12 @@ public class App {
 
     public AppVersion getLatestVersion() throws Exception {
         if (!AppVersions.isEmpty()) {
-            if (AppVersions.stream().count() == 1) return AppVersions.get(0);
+            if (AppVersions.size() == 1) return AppVersions.get(0);
             else {
                 AppVersion latest = AppVersions.get(0);
 
                 for (AppVersion current : AppVersions) {
-                    if (current.getVersion() > latest.getVersion()) {
-                        latest = current;
-                    } else continue;
+                    if (current.getVersion() > latest.getVersion()) latest = current;
                 }
                 return latest;
             }
@@ -43,6 +50,10 @@ public class App {
     }
 
     public void addNewVersion(Integer version, String souceUrl) {
-        addNewVersion((new AppVersion(Name, version, souceUrl)));
+        addNewVersion((new AppVersion(Name, version, souceUrl, price)));
+    }
+
+    public Double getPrice() {
+        return price;
     }
 }

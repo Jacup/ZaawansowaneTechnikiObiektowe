@@ -1,8 +1,8 @@
 package main.creatures;
 
 import main.devices.Car;
+import main.devices.Phone;
 
-import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -18,6 +18,8 @@ public class Human extends Animal {
     private Double salary;
     private Double cash;
     private Car[] garage;
+
+    private Phone phone;
 
     public Human(String firstName, String lastName, Double cash) {
         super();
@@ -187,6 +189,15 @@ public class Human extends Animal {
 
     public void sortGarage() {
         Arrays.sort(garage);
+    }
+
+    public Phone getPhone() {
+        return phone;
+    }
+
+    public void buyPhone(Phone phone) {
+        phone.setOwner(this);
+        this.phone = phone;
     }
 }
 

@@ -1,7 +1,6 @@
 package main;
 
 import main.apps.App;
-import main.apps.AppVersion;
 import main.creatures.FarmAnimal;
 import main.creatures.Human;
 import main.creatures.Pet;
@@ -26,7 +25,8 @@ public class Main {
 //        zad08();
 //        zad09();
 //        zad10();
-        zad11();
+//        zad11(); // already includes zad12, by mistake
+        zad13();
     }
 
     private static void zad034() throws Exception {
@@ -110,8 +110,8 @@ public class Main {
 
     private static void zad10() throws Exception {
 
-        App facebook = new App("Facebook");
-        App twitter = new App("Twitter");
+        App facebook = new App("Facebook", 10.0);
+        App twitter = new App("Twitter", 10.0);
         twitter.addNewVersion(1, "www.twitter.com/1");
 
         //      var latestversion = facebook.getLatestVersion();            // should throw exception
@@ -128,7 +128,6 @@ public class Main {
 
 
     }
-
 
     private static void zad11() throws Exception {
 // init objects
@@ -165,15 +164,42 @@ public class Main {
 
 // find transactions
         System.out.println();
-        System.out.println("Did " + me.getFullName() + " sold " + car1.getName() +
-                " to " + someone.getFullName() + "?: " + car1.transactionExists(me, someone));
-        System.out.println("Did " + me.getFullName() + " sold " + car3.getName() +
-                " to " + someone.getFullName() + "?: " + car3.transactionExists(me, someone));
+        System.out.println("Did " + me.getFullName() + " sold " + car1.getName() + " to " + someone.getFullName() + "?: " + car1.transactionExists(me, someone));
+        System.out.println("Did " + me.getFullName() + " sold " + car3.getName() + " to " + someone.getFullName() + "?: " + car3.transactionExists(me, someone));
 
 // count transactions
         System.out.println();
         System.out.println("Amount of transactions of " + car1.getName() + " : " + car1.getTransactionsAmount());
         System.out.println("Amount of transactions of " + car3.getName() + " : " + car3.getTransactionsAmount());
+
+    }
+
+    private static void zad13() throws Exception {
+// initialization
+        me = new Human("Jakub", "Gramburg", 5.0);
+
+        App twitter = new App("Twitter", 10.0);
+        App facebook = new App("Facebook");
+        App google = new App("Google", 4.0);
+        twitter.addNewVersion(1, "www.twitter.com/1");
+        facebook.addNewVersion(1, "www.facebook.com/1");
+        google.addNewVersion(1, "www.google.com/1");
+
+        Phone myPhone = new Phone("Samsung", "Galaxy S22", 2022, 3000.0);
+        me.buyPhone(myPhone);
+
+// installing apps
+//        me.getPhone().installApp(twitter);          // not enough money, uncomment to check
+        me.getPhone().installApp(facebook);         // it's free
+        me.getPhone().installApp(google);           // have enough money
+
+//isInstalled?
+        System.out.println("Is installed? "+ me.getPhone().isInstalled(facebook));                   // by obj
+        System.out.println("Is installed? "+ me.getPhone().isInstalled("Facebook"));        // by name
+        System.out.println("Is installed? "+ me.getPhone().isInstalled("Messenger"));       // should fail
+
+// value of installed apps
+        System.out.println("Value of installed apps: " + me.getPhone().getValueOfInstalledApps());
 
     }
 
